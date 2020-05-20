@@ -1,5 +1,6 @@
 import random
-ŠTEVILO_DOVOLJENIH_NAPAK = 10
+
+STEVILO_DOVOLJENIH_NAPAK = 9
 PRAVILNA_CRKA ="+"
 PONOVLJENA_CRKA = "0"
 VEC_KOT_CRKA = ">"
@@ -18,7 +19,7 @@ class Igra:
             self.crke = crke
     
     def napacne_crke(self):
-        return [crka for crka in self.crke if crka not in self.geslo ]
+        return [crka for crka in self.crke if crka not in self.geslo]
 
     def pravilne_crke(self):
         return[crka for crka in self.crke if crka in self.geslo]  
@@ -27,13 +28,10 @@ class Igra:
         return len(self.napacne_crke())
 
     def zmaga(self):
-        for crka in self.geslo:
-            if not crka in self.crke:
-                return False
-        return True
+       return all(crka in self.crke for crka in self.geslo)
         
     def poraz(self):
-        return self.stevilo_napak() > ŠTEVILO_DOVOLJENIH_NAPAK
+        return self.stevilo_napak() > STEVILO_DOVOLJENIH_NAPAK
 
     def pravilni_del_gesla(self):
         delni = ''
@@ -51,7 +49,7 @@ class Igra:
         if len(ugib) > 1 or len(ugib) == 0:
             return VEC_KOT_CRKA
         crka = ugib.upper()
-        if crka not in ['ABCČDEFGHIJKLMNOPRSŠTUWZŽĐ']:
+        if crka not in 'ABCČDEFGHIJKLMNOPRSŠTUVWZŽĐ':
             return POSEBEN_ZNAK
         if crka in self.crke:
             return PONOVLJENA_CRKA
@@ -69,7 +67,7 @@ class Igra:
                 else:
                     return NAPACNA_CRKA
 
-with open("besede.txt", "r", encoding="utf-8") as datoteka_z_besedami:
+with open("besede.txt", "r", encoding = "utf-8") as datoteka_z_besedami:
     bazen_besed = [vrstica.strip().upper() for vrstica in datoteka_z_besedami]
 
     
@@ -77,4 +75,3 @@ def nova_igra():
     return Igra(random.choice(bazen_besed))
 
 
-#igra = Igra("abrakadabra", ["a", "e"])
