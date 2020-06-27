@@ -1,28 +1,5 @@
 % import model
-
-<!DOCTYPE html>
-
-<html>
-
-
-
-<body>
-
-
-
-  <h1>Vislice</h1>
-
-
-
-  <blockquote>
-
-    Vislice so najboljša igra za preganjanje dolgčasa (poleg tetrisa).
-
-    <small>Študentje</small>
-
-  </blockquote>
-
-
+%rebase('base.tpl', title='Vislice')
 
 <table>
 
@@ -109,9 +86,4 @@ Pravilno geslo: {{igra.geslo}}
 </form>
 
 % end
-
-</body>
-
-
-
-</html>
+#popravi

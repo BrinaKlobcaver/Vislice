@@ -1,4 +1,5 @@
 import random
+import json
 
 STEVILO_DOVOLJENIH_NAPAK = 9
 PRAVILNA_CRKA ="+"
@@ -97,4 +98,21 @@ class Vislice:
         igra, _ = self.igre[id_igre]
         poskus = igra.ugibaj(crka)
         self.igre[id_igre] = (igra, poskus)
-        
+
+    def zapisi_igre_v_datoteko(self):
+        with open(self.datoteka_s_stanjem, 'w', encoding ='utf_8') as f:
+            igre1 = {
+                id_igre : ((igra.geslo, igra.crke), poskus)
+                for id_igre, (igra, poskus) in self.igre.items()
+            } 
+            json.dump(igre1, f)
+            return 
+
+    def nalozi_igre_iz_datoteke(self):
+        with open(self.datoteka_s_stanjem, 'r', encoding ='utf_8') as f:
+            igre = json.load(f)
+            self.igre = {
+                id_igre : ((igra.geslo, igra.crke), poskus)
+                for id_igre, (igra, poskus) in self.igre.items()
+            }
+#popravi tole nujno oz. dopolni!!!!!!!!!!!!!!!!!!!!!!!!
